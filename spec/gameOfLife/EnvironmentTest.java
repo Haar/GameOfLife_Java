@@ -40,8 +40,17 @@ public class EnvironmentTest {
 	@Test
 	public void testGridCorrectlyCalculatesNeighboursForTopRightCell()
 	{
-		Coordinate[] liveCells = {new Coordinate(3,0), new Coordinate(4,0), new Coordinate (4,1)};
+		Coordinate[] liveCells = {new Coordinate(3,0), new Coordinate(4,0), new Coordinate(4,1)};
+		env.setLiveCells(liveCells);
+		assertEquals(2, env.neighboursOf(4, 0));
+	}
+
+	@Test
+	public void testGridCorrectlyCalculatesNeighboursForBottomLeftCell()
+	{
+		Coordinate[] liveCells = {new Coordinate(0,3), new Coordinate(0,4), new Coordinate(1,4)};
 		env.setLiveCells(liveCells);
 		assertEquals(2, env.neighboursOf(0, 4));
+
 	}
 }
