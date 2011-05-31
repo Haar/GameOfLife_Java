@@ -38,7 +38,7 @@ public class EnvironmentTest {
 	}
 
 	@Test
-	public void testGridCorrectlyCalculatesNeighboursForTopRightCell()
+	public void testGridCorrectlyCalculatesNeighboursForCorners()
 	{
 		Coordinate[] liveCells = {new Coordinate(3,0), new Coordinate(4,0), new Coordinate(4,1)};
 		env.setLiveCells(liveCells);
@@ -46,11 +46,21 @@ public class EnvironmentTest {
 	}
 
 	@Test
-	public void testGridCorrectlyCalculatesNeighboursForBottomLeftCell()
+	public void testGridCorrectlyCalculatesNeighboursForEdges()
 	{
-		Coordinate[] liveCells = {new Coordinate(0,3), new Coordinate(0,4), new Coordinate(1,4)};
+		Coordinate[] liveCells = {new Coordinate(0,2), new Coordinate(0,3), new Coordinate(0,4)};
 		env.setLiveCells(liveCells);
-		assertEquals(2, env.neighboursOf(0, 4));
+		assertEquals(2, env.neighboursOf(0, 3));
 
+	}
+
+	@Test
+	public void testGridCorrectlyCalculatesNeighboursForCellClusters()
+	{
+		Coordinate[] liveCells = {new Coordinate(1,1), new Coordinate (1,2), new Coordinate(1,3),
+								  new Coordinate(2,1), new Coordinate (2,2),new Coordinate (2,3),
+								  new Coordinate(3,1), new Coordinate(3,2), new Coordinate(3,3)};
+		env.setLiveCells(liveCells);
+		assertEquals(8, env.neighboursOf(2, 2));
 	}
 }
