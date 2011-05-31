@@ -17,7 +17,7 @@ public class EnvironmentTest {
 	public void testDefaultGridContainsNoLiveCells()
 	{
 		Cell defCell = env.cellAt(0,0);
-		assertEquals(defCell.alive, false);
+		assertFalse(defCell.alive);
 	}
 
 	@Test
@@ -25,8 +25,8 @@ public class EnvironmentTest {
 	{
 		Coordinate[] liveCells = {new Coordinate(0,0), new Coordinate(0,1)};
 		env.setLiveCells(liveCells);
-		assertEquals(env.cellAt(0,0).alive, true);
-		assertEquals(env.cellAt(0,1).alive, true);
+		assertTrue(env.cellAt(0,0).alive);
+		assertTrue(env.cellAt(0,1).alive);
 	}
 
 	@Test
@@ -62,5 +62,24 @@ public class EnvironmentTest {
 								  new Coordinate(3,1), new Coordinate(3,2), new Coordinate(3,3)};
 		env.setLiveCells(liveCells);
 		assertEquals(8, env.neighboursOf(2, 2));
+	}
+
+	@Test
+	public void testGridCorrectlyIteratesOverMultipleGenerations()
+	{
+		Coordinate[] liveCells = {new Coordinate(1,3), new Coordinate(2,3), new Coordinate(3,3)};
+		Coordinate[] secondGen = {new Coordinate(2,2), new Coordinate(2,3), new Coordinate(2,4)};
+		Environment expectedEnv = new Environment();
+
+		env.setLiveCells(liveCells);
+		expectedEnv.setLiveCells(secondGen);
+		env.iterate();
+
+		assertArrayEquals(expectedEnv.visual(),env.visual());
+
+		env.iterate();
+		expectedEnv.setLiveCells(liveCells);
+
+		assertArrayEquals(expectedEnv.visual(),env.visual());
 	}
 }

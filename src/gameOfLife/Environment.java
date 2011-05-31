@@ -1,12 +1,14 @@
 package gameOfLife;
 
-public class Environment {
+public class Environment
+{
 
 	private Cell[][] env;
 	private final int ROWS;
 	private final int COLS;
 
-	public Environment(int rows, int cols) {
+	public Environment(int rows, int cols)
+	{
 		env = new Cell[rows][cols];
 		ROWS = rows;
 		COLS = cols;
@@ -21,7 +23,10 @@ public class Environment {
 		setAllCellsDead();
 	}
 
-	public void setLiveCells(Coordinate[] liveCells) {
+	public void setLiveCells(Coordinate[] liveCells)
+	{
+		setAllCellsDead();
+
 		for (Coordinate cell : liveCells)
 		{
 			env[cell.x][cell.y].alive = true;
@@ -60,7 +65,42 @@ public class Environment {
 
 			}
 		}
-
 		return neighbourCount;
+	}
+
+	public void iterate()
+	{
+		for (int i = 0; i < ROWS; i++)
+		{
+			for (int j = 0; j < COLS; j++)
+			{
+				env[i][j].neighbours = neighboursOf(i,j);
+			}
+		}
+
+		for (int i = 0; i < ROWS; i++)
+		{
+			for (int j = 0; j < COLS; j++)
+			{
+				env[i][j].iterate();
+			}
+		}
+	}
+
+	public int[][] visual()
+	{
+		int[][] visual = new int[ROWS][COLS];
+
+		for (int i = 0; i < ROWS; i++)
+		{
+			for (int j = 0; j < COLS; j++)
+			{
+				if(env[i][j].alive)
+					visual[i][j] = 1;
+				else
+					visual[i][j] = 0;
+			}
+		}
+		return visual;
 	}
 }
