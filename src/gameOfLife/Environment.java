@@ -103,4 +103,20 @@ public class Environment
 		}
 		return visual;
 	}
+
+	public String getRow(int y)
+	{
+		int[][] visual = visual();
+		StringBuffer row = new StringBuffer();
+
+		for (int i = 0; i < ROWS; i++)
+			row.append(visual[i][y]);
+
+		return row.toString();
+	}
+
+	public void print() {
+		for (int i = 0; i < COLS; i++)
+			System.out.println(getRow(i));
+	}
 }

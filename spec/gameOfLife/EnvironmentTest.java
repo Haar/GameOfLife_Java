@@ -8,7 +8,7 @@ public class EnvironmentTest {
 	private Environment env;
 
 	@Before
-	public void SetUpDefaulGrid()
+	public void SetUpDefaultGrid()
 	{
 		env = new Environment();
 	}
@@ -81,5 +81,16 @@ public class EnvironmentTest {
 		expectedEnv.setLiveCells(liveCells);
 
 		assertArrayEquals(expectedEnv.visual(),env.visual());
+	}
+
+	@Test
+	public void testGridCanGenerateContentForDisplayPurposes()
+	{
+		Coordinate[] liveCells = {new Coordinate(0,0), new Coordinate(3,0),
+								  new Coordinate(1,3), new Coordinate(4,3)};
+		env.setLiveCells(liveCells);
+
+		assertEquals("10010", env.getRow(0));
+		assertEquals("01001", env.getRow(3));
 	}
 }
